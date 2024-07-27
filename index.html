@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuentos Mágicos - Inicio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const HomePage = () => {
+            const [milestones, setMilestones] = React.useState([]);
+
+            React.useEffect(() => {
+                const storedMilestones = JSON.parse(localStorage.getItem('milestones')) || [];
+                setMilestones(storedMilestones);
+            }, []);
+
+            return (
+                <div className="max-w-4xl mx-auto p-6">
+                    <h1 className="text-3xl font-bold mb-6">Bienvenido a Cuentos Mágicos</h1>
+                    <nav className="mb-6">
+                        <ul className="flex space-x-4">
+                            <li><a href="profile.html" className="text-blue-500 hover:underline">Perfil</a></li>
+                            <li><a href="characters.html" className="text-blue-500 hover:underline">Personajes</a></li>
+                            <li><a href="generator.html" className="text-blue-500 hover:underline">Generar Cuento</a></li>
+                            <li><a href="contact.html" className="text-blue-500 hover:underline">Contacto</a></li>
+                        </ul>
+                    </nav>
+                    <div className="mb-6">
+                        <h2 className="text-2xl font-semibold mb-2">Tus Logros</h2>
+                        <ul>
+                            {milestones.map((milestone, index) => (
+                                <li key={index} className="mb-2">{milestone}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<HomePage />, document.getElementById('root'));
+    </script>
+</body>
+</html>

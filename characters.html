@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuentos Mágicos - Personajes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const CharactersPage = () => {
+            const [characters, setCharacters] = React.useState([]);
+
+            React.useEffect(() => {
+                const storedCharacters = JSON.parse(localStorage.getItem('characters')) || [
+                    { name: 'Luna', description: 'Una gata mágica', details: 'Puede hablar con la luna' },
+                    { name: 'Max', description: 'Un niño aventurero', details: 'Le encanta explorar bosques' }
+                ];
+                setCharacters(storedCharacters);
+            }, []);
+
+            return (
+                <div className="max-w-4xl mx-auto p-6">
+                    <h1 className="text-3xl font-bold mb-6">Tus Personajes</h1>
+                    <nav className="mb-6">
+                        <ul className="flex space-x-4">
+                            <li><a href="index.html" className="text-blue-500 hover:underline">Inicio</a></li>
+                            <li><a href="profile.html" className="text-blue-500 hover:underline">Perfil</a></li>
+                            <li><a href="generator.html" className="text-blue-500 hover:underline">Generar Cuento</a></li>
+                            <li><a href="contact.html" className="text-blue-500 hover:underline">Contacto</a></li>
+                        </ul>
+                    </nav>
+                    <div>
+                        {characters.map((character, index) => (
+                            <div key={index} className="mb-4 p-4 border rounded">
+                                <h2 className="text-xl font-semibold">{character.name}</h2>
+                                <p><strong>Descripción:</strong> {character.description}</p>
+                                <p><strong>Detalles:</strong> {character.details}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<CharactersPage />, document.getElementById('root'));
+    </script>
+</body>
+</html>

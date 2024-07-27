@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuentos Mágicos - Perfil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const ProfilePage = () => {
+            const [profile, setProfile] = React.useState({
+                name: 'Usuario Ejemplo',
+                email: 'usuario@ejemplo.com',
+                storiesGenerated: 5,
+                favGenre: 'Aventura'
+            });
+            const [medals, setMedals] = React.useState([]);
+
+            React.useEffect(() => {
+                const storedMedals = JSON.parse(localStorage.getItem('medals')) || [
+                    "Primer cuento leído",
+                    "5 cuentos generados",
+                    "Explorador de géneros"
+                ];
+                setMedals(storedMedals);
+            }, []);
+
+            return (
+                <div className="max-w-4xl mx-auto p-6">
+                    <h1 className="text-3xl font-bold mb-6">Tu Perfil</h1>
+                    <nav className="mb-6">
+                        <ul className="flex space-x-4">
+                            <li><a href="index.html" className="text-blue-500 hover:underline">Inicio</a></li>
+                            <li><a href="characters.html" className="text-blue-500 hover:underline">Personajes</a></li>
+                            <li><a href="generator.html" className="text-blue-500 hover:underline">Generar Cuento</a></li>
+                            <li><a href="contact.html" className="text-blue-500 hover:underline">Contacto</a></li>
+                        </ul>
+                    </nav>
+                    <div className="mb-6">
+                        <h2 className="text-2xl font-semibold mb-2">Información Personal</h2>
+                        <p><strong>Nombre:</strong> {profile.name}</p>
+                        <p><strong>Email:</strong> {profile.email}</p>
+                        <p><strong>Cuentos Generados:</strong> {profile.storiesGenerated}</p>
+                        <p><strong>Género Favorito:</strong> {profile.favGenre}</p>
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-semibold mb-2">Tus Medallas</h2>
+                        <ul>
+                            {medals.map((medal, index) => (
+                                <li key={index} className="mb-2">{medal}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<ProfilePage />, document.getElementById('root'));
+    </script>
+</body>
+</html>
